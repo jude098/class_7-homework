@@ -1,0 +1,20 @@
+#basic
+#splitting the dataset_winedata into training and testing
+
+from sklearn.datasets import load_wine
+from sklearn.model_selection import train_test_split
+
+wine = load_wine()
+feature_names = wine.feature_names
+X = wine.data
+y = wine.target
+
+# Splitting features and target datasets into: train and test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.35)
+
+# Printing original Dataset
+print(f"X.shape: {X.shape}, y.shape: {y.shape}")
+
+# Printing splitted datasets
+print(f"X_train.shape: {X_train.shape}, y_train.shape: {y_train.shape}")
+print(f"X_test.shape: {X_test.shape}, y_test.shape: {y_test.shape}")
