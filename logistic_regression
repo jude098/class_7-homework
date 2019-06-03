@@ -1,5 +1,6 @@
 #basic
 #logistic regression for classification wine dataset
+#Question was: Based on the 14 attributes of the wine chemical composition, can we classify an unlabeled wine?
 
 from sklearn.datasets import load_wine
 import pandas as pd
