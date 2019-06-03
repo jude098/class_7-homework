@@ -1,0 +1,101 @@
+#source: https://heartbeat.fritz.ai/guide-to-implementing-k-nearest-neighbors-in-your-machine-learning-model-3b8420f16d93
+#Question: Based on the 13 attributes of the wine chemical composition, can we classify an unlabeled wine?
+
+#using KNN with multilple metrics (Classify the wine based on the 13 attributes)
+
+import numpy as np
+from sklearn import neighbors
+from sklearn.model_selection import train_test_split
+import pandas as pd
+import matplotlib
+matplotlib.use("TkAgg")
+
+import matplotlib.pyplot as plt
+import os
+
+#importing wine dataset from scikit-learn
+
+from sklearn import datasets
+
+#Load dataset
+wine = datasets.load_wine()
+
+#exploring the data
+
+# print the names of the header/features
+print(wine.feature_names)
+
+# print the label target (class_0, class_1, class_2)
+print(wine.target_names)
+
+# print the wine labels (0:Class_0, 1:Class_1, 2:Class_3)
+print(wine.target)
+
+# print data(feature)shape
+print(wine.data.shape)
+
+#spliting the data (to understand the model performance, dividing the dataset into training and test set)
+
+# Import train_test_split function
+from sklearn.model_selection import train_test_split
+
+# Split dataset into training set and test set 75:25
+X_train, X_test, y_train, y_test = train_test_split(wine.data, wine.target, test_size=0.25)
+
+#building the model k=13
+
+neigh = neighbors.KNeighborsClassifier(n_neighbors=13, weights='uniform',algorithm='auto')
+
+neigh = neigh.fit(X_train,y_train)
+print(neigh.predict(X_test))
+print(neigh.score(X_test,y_test))
+
+#accuracy of 71.11% (1st time running the code)
+
+#building the model k=5
+
+neigh = neighbors.KNeighborsClassifier(n_neighbors=5, weights='uniform',algorithm='auto')
+
+neigh = neigh.fit(X_train,y_train)
+print(neigh.predict(X_test))
+print(neigh.score(X_test,y_test))
+
+#accuracy of 74.71% (1st time running the code)
+
+#finding optimal k by using GridSearchCV command
+
+from sklearn.model_selection import GridSearchCV
+
+#creating dictionary for  parameter values: k_range (1-31)
+
+k_range = range(1,31)
+weight = ['uniform','distance']
+param_grid = dict(n_neighbors=k_range, weights=weight)
+
+#pass our parameter values to GridSearchCV
+#our classifier param_grid; cv
+#scoring to evaluate predictions on the test set
+
+
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+
+neigh = neighbors.KNeighborsClassifier()
+grid = GridSearchCV(neigh,param_grid,cv=10,scoring='accuracy')
+grid.fit(wine.data,wine.target)
+
+#Finally, lets print our best score and best parameters
+print(grid.best_score_)
+print(grid.best_params_)
+
+#results: k=1 and weights: uniform
+
+#building the model with a k=1
+
+neigh = neighbors.KNeighborsClassifier(n_neighbors=1, weights='uniform',algorithm='auto')
+
+neigh = neigh.fit(X_train,y_train)
+print(neigh.predict(X_test))
+print(neigh.score(X_test,y_test))
+
+#results accuracy: 53.33%
