@@ -1,0 +1,45 @@
+#source: https://scipy-lectures.org/packages/scikit-learn/index.html
+
+#Question: Based on the 13 attributes of the wine chemical composition, can we classify an unlabeled wine?
+
+#using Gaussian Naive Bayes Classification method, with multilple metrics (Classify the wine based on the 13 attributes)
+
+#importing wine dataset from scikit-learn
+
+from sklearn import datasets
+
+#Load dataset
+wine = datasets.load_wine()
+
+#exploring the data
+
+# print the names of the header/features
+print(wine.feature_names)
+
+# print the label target (class_0, class_1, class_2)
+print(wine.target_names)
+
+# print the wine labels (0:Class_0, 1:Class_1, 2:Class_3)
+print(wine.target)
+
+# print data(feature)shape
+print(wine.data.shape)
+
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
+
+# split the data into training and validation sets
+X_train, X_test, y_train, y_test = train_test_split(wine.data, wine.target)
+
+# train the model
+clf = GaussianNB()
+clf.fit(X_train, y_train)
+
+# use the model to predict the labels of the test data
+predicted = clf.predict(X_test)
+expected = y_test
+print(predicted)
+print(expected)
+
+from sklearn import metrics
+print(metrics.classification_report(expected, predicted))
