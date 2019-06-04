@@ -62,6 +62,7 @@ print(neigh.score(X_test,y_test))
 
 #accuracy of 74.71% (1st time running the code)
 
+#Searching GridSearchCV 1 (not really working)
 #finding optimal k by using GridSearchCV command
 
 from sklearn.model_selection import GridSearchCV
