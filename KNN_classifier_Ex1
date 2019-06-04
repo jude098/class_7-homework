@@ -48,15 +48,18 @@ y_pred = knn.predict(X_test)
 
 #Import scikit-learn metrics module for accuracy calculation
 from sklearn import metrics
+
 # Model Accuracy, how often is the classifier correct?
 print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+
+#Accuracy: 65.08 %
 
 #building the model for k=7
 
 #Import knearest neighbors Classifier model
 from sklearn.neighbors import KNeighborsClassifier
 
-#Create KNN Classifier
+#Create KNN Classifier k=7
 knn = KNeighborsClassifier(n_neighbors=7)
 
 #Train the model using the training sets
@@ -70,4 +73,29 @@ from sklearn import metrics
 # Model Accuracy, how often is the classifier correct?
 print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 
-#Accuracy change everytime we run the coding, since it picks random data everytime?
+#Accuracy of 66.66 %
+
+#building the model for k=10
+
+#Import knearest neighbors Classifier model
+from sklearn.neighbors import KNeighborsClassifier
+
+#Create KNN Classifier
+knn = KNeighborsClassifier(n_neighbors=10)
+
+#Train the model using the training sets
+knn.fit(X_train, y_train)
+
+#Predict the response for test dataset
+y_pred = knn.predict(X_test)
+
+#Import scikit-learn metrics module for accuracy calculation
+from sklearn import metrics
+# Model Accuracy, how often is the classifier correct?
+print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+
+#Accuracy : 68.25 %
+
+#Before addding random_1, the Accuracy changed everytime we run the coding, since it picks random data everytime
+#By adding random_1, it makes the accuracy more stable
+#we can noticed that an increase by +3 (7 to 10) for the k difference, increase the accuracy by 2% in this example
